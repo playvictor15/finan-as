@@ -3,62 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanças Dark Mode</title>
+    <title>Finanças Pro - Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div id="auth-overlay" class="overlay">
+        <div class="auth-card">
+            <h2>Bem-vindo ao Finanças Pro</h2>
+            <p>Acesse sua conta para monitorar seus gastos</p>
+            <button id="login-btn">Entrar com Google</button>
+        </div>
+    </div>
+
+    <div class="container main-content" id="app-content" style="display: none;">
         <header>
-            <h1>Painel de Finanças</h1>
+            <div class="header-top">
+                <h1>Painel de Finanças</h1>
+                <button id="logout-btn" class="secondary-btn">Sair</button>
+            </div>
             <div class="summary">
                 <div class="card">
                     <span>Receitas</span>
-                    <h2 id="total-income">R$ 0,00</h2>
+                    <h2 id="total-income" class="text-income">R$ 0,00</h2>
                 </div>
                 <div class="card">
                     <span>Despesas</span>
-                    <h2 id="total-expense">R$ 0,00</h2>
+                    <h2 id="total-expense" class="text-expense">R$ 0,00</h2>
                 </div>
                 <div class="card">
-                    <span>Saldo</span>
+                    <span>Saldo Atual</span>
                     <h2 id="total-balance">R$ 0,00</h2>
                 </div>
             </div>
         </header>
 
         <main>
-            <section class="goal-section">
-                <h3>Meta de Poupança</h3>
+            <section class="goal-section card">
+                <h3>Meta de Poupança Mensal</h3>
                 <div class="progress-container">
                     <div class="progress-bar" id="goal-progress">0%</div>
                 </div>
-                <p>Progresso: <span id="goal-value">R$ 0 / R$ 5.000</span></p>
+                <div class="goal-details">
+                    <p>Status: <span id="financial-health">Analisando...</span></p>
+                    <p><span id="goal-value">R$ 0 / R$ 5.000</span></p>
+                </div>
             </section>
 
             <div class="grid">
-                <section class="chart-container">
-                    <h3>Gastos por Categoria</h3>
+                <section class="chart-container card">
+                    <h3>Distribuição de Gastos</h3>
                     <canvas id="categoryChart"></canvas>
                 </section>
 
-                <section class="form-container">
+                <section class="form-container card">
                     <h3>Nova Transação</h3>
                     <form id="transaction-form">
-                        <input type="text" id="desc" placeholder="Descrição" required>
-                        <input type="number" id="amount" placeholder="Valor (R$)" required>
+                        <input type="text" id="desc" placeholder="Descrição (ex: Aluguel)" required>
+                        <input type="number" id="amount" placeholder="Valor (negativo para despesa)" required>
                         <select id="category">
                             <option value="Lazer">Lazer</option>
                             <option value="Alimentação">Alimentação</option>
                             <option value="Transporte">Transporte</option>
                             <option value="Contas">Contas</option>
+                            <option value="Receita">Receita (Salário/Freelance)</option>
                         </select>
-                        <button type="submit">Adicionar</button>
+                        <button type="submit" id="add-btn">Registrar em Tempo Real</button>
                     </form>
                 </section>
             </div>
         </main>
     </div>
-    <script src="script.js"></script>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
